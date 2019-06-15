@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Make a post!</title>
+	<link rel="shortcut icon" href="/public/icon.ico">
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link href="/public/mui.min.css" rel="stylesheet" type="text/css" />
+	<script src="/public/mui.min.js"></script>
+	<link href="/public/simplemde.min.css" rel="stylesheet" type="text/css" />
+	<script src="/public/simplemde.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="/public/style.css">
+	<meta charset="utf-8" http-equiv="X-Frame-Options" value="DENY">
+	<script src="/public/jquery.min.js"></script>
+	<script type="text/javascript" src="/public/bcsc.js"></script>
+	<script>
+		$(document).ready(function() {
+			var simplemde = new SimpleMDE({element: $("#postbox")[0], autosave:{enabled: true , unique_id:"postbox"}, 
+				forceSync: true, placeholder:"Say Something"});
+		});
+	</script>
+</head>
+<body style="/*background-image: url('/public/form-wallpaper.jpg');*/">
+<div style="height: 5%;"></div>
+<div class="mui-panel mui-container-fluid" style="width: 90%;">
+<form method="post" <% if(!edit){ %>enctype="multipart/form-data" <% } %> class="mui-form">
+	<legend><%= edit?"Edit your post":"Post something" %> <%= uname %>, and let everyone know!</legend>
+	<table style="width: 100%;" class="mui-table">
+		<tr><td><span id="status" style="font-family:'Open Sans'; color:red; animation: 500ms fadeIn;">
+		<% if(error){ %>
+		<b>An error occured while <%= edit?"editing. Maybe you are not eligible to edit this post":"posting" %>.</b><br><em>Please try again, and make sure that no field is left empty.</em><br><em>Also, make sure that the amount of data entered in the post is lesser than the constraints applied by default.</em>
+		<% } %>
+		</span></td></tr>
+	<% if(!edit) { %>
+	<tr><td>
+	<div class="mui-select">
+		<select name="topic">
+		<option value="default" selected>Timeline</option>
+		<% topics.forEach((value)=>{ %>
+			<option value="<%= value %>"><%= value %></option>
+		<% }); %>
+		</select>
+		<label for="topic">Topic</label>
+	</div></td></tr>
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$(".sched").hide();
+			$("#schedule").click(function() {
+				$(".sched").toggle(250);
+			});
+		});
+	</script>
+	<% /*Post editing DOES NOT allow users to remove or edit their links or attachments, thereby averting a security risk*/ %>
+	<tr><td>
+	<div class="mui-textfield">
+		<input type="file" name="File" style="font-size: 13px;">
+		<label for="File">Attachment <i class="fa fa-file"></i></label>
+	</div></td></tr>
+	<tr><td><div class="mui-checkbox"><input type="checkbox" id="schedule"><label for="schedule">Schedule this post to be viewed in the future</label></div></td></tr>
+	<tr class="sched"><td>
+	<div class="mui-textfield">
+		<input type="date" name="ts" title="Format of the timestring is YYYY-MM-DD hh:mm:ss" style="font-size: 13px;">
+		<label for="ts">Date</label>	
+	</div>
+	</td></tr>
+	<tr class="sched"><td>
+	<div class="mui-panel">
+		<span class="mui--text-caption">If the calendar fails to show, format of the timestring is YYYY-MM-DD hh:mm:ss</span>
+	</div>
+	</td></tr>
+	<% } %>
+	<tr><td>
+	<div class="mui-textfield mui-textfield--float-label">
+	<textarea name="description" style="font-size: 15px;" id="postbox" maxlength="<%= config.postLen-50 %>" required><% d=""; if(data) {d=data.body} %><%= d %></textarea>
+	<!--<label for="description">Say Something</label>-->
+	</div></td></tr>
+	<tr><td>
+	<div style="text-align: right;">
+		<button type="submit" class="mui-btn mui-btn--primary mui-btn--raised"><%= edit?'Edit':'Post' %></button>
+	</div></td></tr>
+	</table>
+</form>
+</div>
+</body>
+</html>

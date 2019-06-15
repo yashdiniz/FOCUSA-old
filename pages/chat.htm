@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>FOCUSA | Converse</title>
+	<link rel="shortcut icon" href="/public/icon.ico">
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link href="/public/mui.min.css" rel="stylesheet" type="text/css" />
+	<script src="/public/mui.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="/public/style.css">
+	<meta charset="utf-8" http-equiv="X-Frame-Options" value="DENY">
+	<script src="/public/jquery.min.js"></script>
+	<script src="/public/chatcodeFront.js"></script>
+	<script src="/public/bcsc.js"></script></head>
+
+	<style type="text/css">
+		#header {
+			left: 0;
+		}
+		#input {
+			width: 100%;
+			background-color: white !important;
+			height: 50px;
+			margin: 0;
+			position: fixed;
+			bottom:0;
+		}
+	</style>
+<body>
+	<header id="header" class="header-shadow">
+		<div class="mui-appbar mui--appbar-height">
+			<table class="mui-appbar mui--appbar-height">
+				<tr><td><span class="mui--text-headline appbar-brand">FOCUSA&nbsp; &gt; &nbsp;Converse</span></td>
+				</tr>
+				<tr><td><span class="mui--text-caption" id="status">Connecting...</span></td></tr>
+			</table>
+		</div>
+	</header>
+	<div class="mui-container-fluid">
+		<div id="appbar-placeholder" class="mui--appbar-height"></div>
+		<div style="height: 5%;">&nbsp;</div>
+		<div>
+			<table class="mui-table" id="content" style="width: 100%;">
+				
+			</table>
+		</div>
+	</div>
+
+	<div style="height: 30%;"></div>
+	<input type="text" id="input">
+</body>
+</html>

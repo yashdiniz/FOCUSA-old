@@ -1,0 +1,24 @@
+I want to simplify nginx proxying for FOCUSA.
+Nginx can perform static file proxying based for FOCUSA, relieving FOCUSA's 
+nodeJS script from unnecessary overload. It's really simple,
+
+1. Any HTTP request with the URI "/public/*" will not be forwarded to nodeJS.
+Instead, nginx will directly process that request and transfer the static file.
+
+2. Any other HTTP request will be forwarded to nodeJS. This means that the 
+overhead of content delivery has been averted from FOCUSA's main script.
+
+3. Nginx has multithreaded, multi-channel support(serves static files faster
+than nodeJS), and has a surprisingly small memory footprint(smaller than
+FOCUSA), and will actually perform the task of static file serving(content
+delivery) more easily.
+
+4. Also, FOCUSA's memory usage dropped drastically after I removed static file
+serving(it may have been buffering the files)!
+MEMORY USAGE:
+	FOCUSA(with static file serving) >> FOCUSA(without static file serving) + nginx
+
+5. This means that FOCUSA's main script only needs to perform the task of 
+content management, not content delivery anymore!!
+
+Hooray to efficiency and optimization!

@@ -1,0 +1,14 @@
+node_modules
+npm-debug.log
+
+# within the public directory, I need to git ignore:
+docs/public/documents/*
+docs/public/dp/*
+
+# Also, ignore the certificates!
+certs/*
+!GenerateCertificates.sh
+
+# Dockerfiles, from an old experiment of mine...
+Dockerfile
+.dockerignore

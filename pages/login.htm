@@ -1,0 +1,66 @@
+<html>
+<head>
+	<title>Login</title>
+	<link rel="shortcut icon" href="/public/icon.ico">
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link href="/public/mui.min.css" rel="stylesheet" type="text/css" />
+	<script src="/public/mui.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="/public/style.css">
+	<script type="text/javascript" src="/public/jquery.min.js"></script>
+	<script type="text/javascript" src="/public/bcsc.js"></script>
+	<% if(animate){ %>
+	<style type="text/css">
+		/*
+			@author:yash.diniz
+			This is the login page, simplified by an active pages library called ejs.
+			If you will surely be STUDYING this code in the near future, Don't worry, you can always contact me. ;) 
+			Validation WILL be done on SERVER side... Making this data transaction all the more secure ;)
+		*/
+		.line , .logo , #name , #pass , #submit {
+			animation: 600ms fadeIn linear;
+		}
+		.line {
+			animation: 1s slideIn ease;
+		}
+	</style>
+	<% } %>
+</head>
+<body class="login">
+	<div class="background mui-container-fluid">
+	<div style="height: 8%;"></div>
+	<center><div class="mui-panel" style="max-width: 800px;">
+	<h1 class="logo mui--no-user-select" title="FOCUSA v3.0" style="text-align: left;margin-bottom: 30px;"><span class="F">F</span><span class="O">O</span><span class="C">C</span><span class="U">U</span><span class="S">S</span><span class="A">A</span>
+	</h1>
+	<div class="mui-divider"></div>
+	<span id="status" style="font-family:'Open Sans'; color:red; animation: 500ms fadeIn;">
+		<% if(error){ %>
+		<b>Login Failed</b>.<br><em>Either the username or the password you entered is incorrect,<br>or you have already logged in through another device.</em>
+		<% } %>
+	</span>
+	<form method="POST" enctype="application/json" class="mui-form">
+		<table class="mui-table">
+			<tr>
+				<td><div class="mui-textfield mui-textfield--float-label">
+				<input type="text" name="name" id="name" required="true" class="mui--no-user-select">
+				<label for="name">Username</label>
+				</div></td>
+			</tr>
+			<tr>
+				<td><div class="mui-textfield mui-textfield--float-label">
+				<input type="password" name="pass" id="pass" required="true" autocomplete="OFF" class="mui--no-user-select">
+				<label for="pass">Password</label>
+				</div></td>
+			</tr>
+			<tr><td><span class="mui--text-caption mui--no-user-select">Forgotten password? Ask the network administrator for help.</span></td></tr>
+			<tr><td style="text-align: right;"><button type="submit" class="mui-btn mui-btn--primary">LOGIN</button></td></tr>
+			<tr><td style="text-align: right;"><a href="/posts/search/<%= escape(config.publicPostCategories) %>">View posts instead</a></td></tr>
+		</table>
+	</form>
+</div>
+</center>
+<div class="about" title="Yash Diniz 2017" style="cursor: default;">&copy;FOCUSA 2017</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html><head>
+	<title>Posts published</title>
+	<link rel="shortcut icon" href="/public/icon.ico">
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link href="/public/mui.min.css" rel="stylesheet" type="text/css" />
+	<script src="/public/mui.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="/public/style.css">
+	<script src="/public/markdown-it.min.js"></script>
+	<script src="/public/jquery.min.js"></script>
+	<script type="text/javascript" src="/public/bcsc.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$(".categories").click(function() {
+				var s = $(this).text().match(/#\w+/gi);
+				location.assign("/posts/search/"+escape(s));
+			});
+			$("#search").change(function() {
+				location.assign("/posts/search/"+escape($("#search").val()));
+			});
+		});
+	</script>
+	<script type="text/javascript">
+		jQuery(function($) {
+			var $bodyEl = $('body'),
+			$sidedrawerEl = $('#sidedrawer');
+
+			function showSidedrawer() {
+				// show overlay
+				var options = {
+					onclose: function() {
+						$sidedrawerEl
+						.removeClass('active')
+						.appendTo(document.body);
+						$("body").removeClass('mui-scroll-lock');
+					}
+				};
+
+			var $overlayEl = $(mui.overlay('on', options));
+			$bodyEl.addClass('mui-scroll-lock');
+				// show element
+				$sidedrawerEl.appendTo($overlayEl);
+				setTimeout(function() {
+				$sidedrawerEl.addClass('active');
+				}, 20);
+			}
+
+			var $titleEls = $('strong', $sidedrawerEl);
+
+			$titleEls
+			.next()
+			.hide();
+			$titleEls.on('click', function() {
+			$(this).next().slideToggle(200);
+			});	
+
+			function hideSidedrawer() {
+				$bodyEl.toggleClass('hide-sidedrawer');
+			}
+
+			$('.js-show-sidedrawer').on('click', showSidedrawer);
+			$('.js-hide-sidedrawer').on('click', hideSidedrawer);
+		});
+	</script>
+	<style type="text/css">
+		img {
+		  box-shadow: 2px 2px 1px rgba(0,0,0,0.2);
+		}
+		.document {
+		  position: relative;
+		}
+		.dp {
+			max-height: 50px;
+			max-width: 50px;
+		}
+		.document img , .body img{
+			max-height: 250px;
+			max-width: 250px;
+		}
+		.file {
+		  display: block;
+		  height: auto;
+		}
+		.document .overlay {
+		  position: absolute;
+		  top: 0;
+		  bottom: 0;
+		  left: 0;
+		  right: 0;
+		  height: 100%;
+		  width: 100%;
+		  cursor: pointer;
+		  opacity: 0;
+		  transition: .5s ease;
+		  background-color: rgba(0,0,0,0.5);
+		}
+		.document:hover .overlay {
+		  opacity: 1;
+		}
+		.text {
+		  color: white;
+		  font-size: 20px;
+		  position: absolute;
+		  top: 50%;
+		  left: 50%;
+		  transform: translate(-50%, -50%);
+		  -ms-transform: translate(-50%, -50%);
+		  text-align: center;
+		}		
+		.comments span * {
+			display: inline;
+		}
+	</style>
+</head>
+<body>
+<header id="header" class="header-shadow">
+	<div class="mui-appbar mui--appbar-height">
+		<table class="mui-appbar mui--appbar-height">
+			<tr><td><a class="sidedrawer-toggle mui--visible-xs-inline-block mui--visible-sm-inline-block js-show-sidedrawer"><i class="fa fa-bars"></i></a>
+			<a class="sidedrawer-toggle mui--hidden-xs mui--hidden-sm js-hide-sidedrawer"><i class="fa fa-bars"></i></a>
+			<span class="mui--text-headline appbar-brand">&nbsp;&nbsp;FOCUSA&nbsp; &gt; &nbsp;<% if(interests && topic) { %><%= topic %><% } else { %>timeline<% } %></span></td>
+			<td>
+			<% if(interests) { %>
+			<form action="/toggle" method="post" style="float:right;margin:0;padding:0;padding-right: 20px;" class="mui-form--inline">
+			<input type="hidden" name="topic" value="<%= topic %>">
+			<% if(interests.indexOf(topic)>=0) { %>
+			<button type="submit" class="mui-btn mui-btn--primary mui--hidden-xs mui--hidden-sm" title="Unsubscribe"><b>Subscribed</b></button>
+			<% } else { %>
+			<button type="submit" class="mui-btn mui-btn--raised mui--hidden-xs mui--hidden-sm" title="Subscribe to <%= topic %>">Subscribe</button>
+			<% } %>
+			</form>
+			<% } %>
+			</td>
+			</tr>
+		</table>
+	</div>
+</header>
+<div id="sidedrawer" class="mui--no-user-select">
+	<table id="sidedrawer-brand" class="mui--appbar-height">
+	<tr><td><span class="mui--text-headline">FOCUSA</span></td></tr>
+	</table>
+	<div class="mui-divider"></div>
+	<ul>
+	<% if(interests) { %>
+	<% if(interests.indexOf(topic)>=0) { %>
+	<li><a href="/toggle/<%= topic %>" title="Unsubscribe"><strong>Subscribed</strong></a></li>
+	<% } else { %>
+	<li><a href="/toggle/<%= topic %>" title="Subscribe to <%= topic %>"><strong>Subscribe</strong></a></li>
+	<% } %>
+	</form>
+	<% } else { %>
+	<li><input type="text" name="search" class="fa" placeholder="&#xf002; Search" id="search" style="padding: 10px; border-radius: 69px; width: 70%;" maxlength="30" value="<%= unescape(query) %>"></li>
+	<% } %>
+	<% if(private){ %>
+	<li><a href="/post" title="<%= private.name %>, Post Something!"><strong>Post</strong></a></li>
+	<li><a href="/me"><strong>View Profile</strong></a></li>
+	<% } %>
+	<% if(adminMenuItem) { %>
+	<li><a href="/dashboard" title="Manual pages and other administrative commands"><strong>Dashboard</strong></a></li>
+	<li><a href="/approve" title="Open Post Approval page"><strong>Approve</strong></a></li>
+	<% } %>
+	<% //private means when a user who's logged in is viewing someone else's profile %>
+	<li><a href="/logout" title="Logout"><strong><i class="fa fa-sign-out"></i> Logout</strong></a></li>
+	</ul>
+</div>
+<div id="appbar-placeholder" class="mui--appbar-height"></div>
+<div style="height: 5%;"></div>
+<div id="content-wrapper" class="mui-container-fluid">
+	<% var id; %>
+		<% if(posts.length>0)posts.forEach((post)=>{ %>
+		<% id=post.id %>
+		<div class="mui-panel mui-col-sm-10 mui-col-sm-offset-1" id="<%= post.id %>" style="text-align: left;">
+			<div class="mui-dropdown" style="float:right;">
+				<button class="mui-btn" data-mui-toggle="dropdown" style="border-radius: 69px;font-size:20px;"><i class="fa fa-ellipsis-v"></i></button>
+				<ul class="mui-dropdown__menu mui-dropdown__menu--right">
+					<li><% if(private && private.name==post.uname) { //if user logged in and post is being viewed by publisher %>
+							<a href="/posts/edit/<%= post.id %>" title="Edit your Post">Edit Post</a>
+						<% } %></li>
+					<li><% if(adminMenuItem && (!post.approve || (post.report && post.report.length>0))) { %>
+						<a href="/approve/positive/<%= post.id %>" title="<%= post.report?'Post was reported by '+post.report : '' %>">Approve</a>
+						<% } %></li>
+					<li>
+						<% if(private && (private.name==post.uname || adminMenuItem)) { //if user logged in and post is being viewed by admin or publisher %>
+						<a href="#" onclick="confirm('Are you sure you want to delete the post?\nDeleted posts will be gone forever!(That\'s a very long time!)')?(location.assign('/posts/delete/<%= post.id %>')):(false)" title="Delete Post" class="delete">Delete</a>
+						<% } else { //if user not logged in or he's not admin or not publisher... %>
+						<a title="Report this Post" href="/posts/report/<%= post.id %>" onclick="alert('This post has been reported.\nIt will be reviewed by the administrators shortly.\nThank You for showing concern and preventing the spread of objectionable content on FOCUSA.')">Report</a>
+						<% } %></li>
+				</ul>
+			</div>
+			<span style="display:flex;flex-flow:row nowrap;align-items:center;padding-bottom:0;margin:0;">
+				<img class="dp" src="/public/dp/<%= post.dp %>" style="display:flex;flex-flow:row nowrap;align-items:center;">
+					<span class="mui--text-title" style="margin: 0;padding-left: 10px;"><%= post.fname %></span>
+			</span>
+			<div class="meta" style="padding: 5px; overflow: auto;padding-top: 0;">
+				<% var d = new Date(post.time); %>
+				<span class="mui--divider-right mui--text-caption time" title="<%= d.toUTCString() %>"><%= d.toDateString() %>&nbsp;</span>
+				<span class="mui--divider-right mui--text-caption uname"><a href="<%= '/profile/'+post.uname %>"><%= post.uname %></a>&nbsp;</span>
+				<span class="mui--text-caption topic">
+				<a href="<%= post.topic==='default'?('/profile/'+post.uname):('/topic/'+post.topic) %>"><%= post.topic==='default'?"Timeline post":post.topic %></a></span>
+				<% if(post.edited) { %>
+				<span class="mui--divider-left mui--text-caption edited">&nbsp;Edited</span>
+				<% } %>
+			</div>
+			<div class="mui-divider"></div>
+			<div class="main">
+				<!--Message-->
+				<script type="text/javascript">
+					/*var myMarked; $(document).ready(function() {
+						myMarked = marked; myMarked.setOptions({ renderer: new myMarked.Renderer(), breaks: true });
+					}); function markdownify(elem) { elem.innerHTML = myMarked(elem.innerHTML); }*/
+					var mdp = window.markdownit({breaks:true , typographer:true});	//markdown parser for posts and comments...
+					$(document).ready(function() { $("#body<%= post.id %>").html(mdp.render($("#body<%= post.id %>").html())); });
+				</script>
+				<div class="body" id="body<%= post.id %>" style="padding: 5px; overflow-x: auto;"><%= post.body %> <% /*(post.body)?(post.body).replace(/frame\>|iframe\>script\>|object\>/gi,"<br>").replace(/\n|\r\n|\r/gi,"<br>"):" "*/ %></div>
+				<span>&nbsp;<br>&nbsp;<br></span>
+				<% if(post.tags){ %>
+				<div style="overflow-x:auto;">
+				<% post.tags.forEach(function(cat){ %>
+					<span class="categories" style="background-color: #beeffa; margin:5px;padding:5px;float: right;">
+					<a href="<%= escape(cat) %>" style="text-decoration: none;"><%= cat %></a>&nbsp;&nbsp;</span>
+				<% })} %>
+				</div>
+				<%if(post.file!=null){%>
+					<div class="document" style="padding: 5px;"><center>
+					<% if(post.isImage) { %><img src="<%= post.file %>" class="file">
+					<a href="<%= post.file %>"><div class="overlay"><div class="text">View image</div></div></a>
+					<% }else{ %><a href="<%= post.file %>" class="file"><%=post.file%></a>
+					<% } %>
+					</center>
+					</div>
+				<%}%>		
+				<hr>
+				<div class="buttons" style="text-align: right;">
+					<% if(post.share) { %>
+					<a href="/mail/<%= post.id %>" class="share mui--text-headline" title="share as e-mail"><i class="fa fa-send-o"></i></a>
+					<% } %>
+					&nbsp;&nbsp;&nbsp;
+					<a href="/posts/<%= post.id %>" title="View Comments" class="share comment mui--text-headline" style="text-decoration: none;"><i class="fa fa-comment-o"></i><span style="font-size:medium;">&nbsp;<%= post.comments?(Object.keys(post.comments).length>0?Object.keys(post.comments).length:""):"" %></span></a>
+				</div>
+			</div>
+			<% if(!query) { %>
+			<div class="comments" style="overflow-x: auto;">
+				<% if(post.comments)for(var a in post.comments){	%>
+					<% s = new Date(); s.setTime(post.comments[a].timestamp); %>
+					<div class="mui-divider"></div>
+					<div class="mui-table" id="<%= post.id %>-<%= post.comments[a].timestamp %>">
+						<strong title="<%= s.toUTCString() %>"><a href="/profile/<%= post.comments[a].username %>"><%= post.comments[a].username %></a></strong>
+						<br>
+						<script>
+							$(document).ready(function() { $("#comments<%= a %>").html(mdp.render($("#comments<%= a %>").html())); });
+						</script>
+						<span id="comments<%= a %>"><%= post.comments[a].data %></span>
+						<% if(private && (private.name==post.comments[a].username || adminMenuItem)) { //if user logged in and post is being viewed by admin or publisher %>
+						<span class="mui--text-title" style="float:right;text-align: right;"><a href="/comment/delete/<%= post.id %>/<%= post.comments[a].timestamp %>" style="text-decoration: none;"><i class="fa fa-trash" title="Delete comment"></i></a></span>
+						<% } %>
+					</div>
+					<div class="mui-divider"></div>
+				<% } %>
+				<form method="post" action="/comment" class="mui-form">
+					<div class="mui-textfield mui-textfield--float-label">
+						<input type="text" name="data" maxlength="<%= config.commentLen-50 %>" id="comment-box" autocomplete="off">
+						<label for="data"><%= private?'Comment as '+private.name+'...' : 'Comment...'%>
+						<i class="fa fa-comment-o"></i></label>
+					</div>
+					<input type="hidden" name="id" value="<%= post.id %>">
+				</form>
+			</div>
+			<% } %>
+		</div>
+			<script type="text/javascript">
+					/*if($("#<%= post.id %> .dp").width()>$("#<%= post.id %> .dp").height()) $("#<%= post.id %> .dp").width(50);
+					else $("#<%= post.id %> .dp").height(50);
+					if($("#<%= post.id %> .body img").width()>$("#<%= post.id %> .body img").height())$("#<%= post.id %> .body img").width(250);
+					else $("#<%= post.id %> .body img").height(250);
+					if($("#<%= post.id %> .document img").width()>$("#<%= post.id %> .document img").height())$("#<%= post.id %> .document img").width(250);
+					else $("#<%= post.id %> .document img").height(250);*/
+					$("#<%= post.id %> span.menu").click(function() {
+						$("div.post .delete").unbind('click');
+						$("#<%= post.id %> .delete").click(function() {
+							if(confirm("Are you sure you want to delete this post?\nA post once deleted cannot be recovered.")) {
+								$.post("/posts/delete/",{id:"<%= post.id %>"},function(d) {
+									if(d)location.assign("/me");
+								})
+							}
+						})
+					});
+			</script>
+		<% }); else { %>
+		<!-- Code above may be open to dangers of XSS, but session hijacking is prevented... -->
+		<div class="mui-panel mui-col-sm-10 mui-col-sm-offset-1" style="text-align: left;"><h3>No posts to be shown.</h3>The posts you wish to see:<ul><li>Do not exist</li><li>User has not posted yet</li><li>May have been recently deleted</li><li>May be too old</li><li>May have been removed by an administrator due to reported content</li><li>May not have got administrator approval yet</li></ul></div>
+		<% } %>
+		<% if(query){ %><div class="mui-panel mui-col-sm-10 mui-col-sm-offset-1" style="text-align: center;"><a href="/posts/search/<%= query %>/<%= id %>">See more</a></div>
+		<script type="text/javascript">$("#search").focus();</script>
+		<% } else { %><script type="text/javascript">$("#comment-box").focus();</script><% } %>
+		<span>&nbsp;<br>&nbsp;<br></span>
+</div>
+<div style="height: 30%;"></div>
+</body>
+</html>

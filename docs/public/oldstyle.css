@@ -1,0 +1,275 @@
+@import url('/public/fonts/font-awesome.css');
+@import url('/public/loader.css');
+@font-face {
+	font-family: 'Open Sans';
+	src: url('/public/fonts/OpenSans-Regular.eot');
+	src: local('Open Sans Regular'), local('OpenSans-Regular'),
+		url('/public/fonts/OpenSans-Regular.eot?#iefix') format('embedded-opentype'),
+		url('/public/fonts/OpenSans-Regular.woff') format('woff'),
+		url('/public/fonts/OpenSans-Regular.ttf') format('truetype'),
+		url('/public/fonts/OpenSans-Regular.svg#OpenSans-Regular') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'Open Sans';
+	src: url('/public/fonts/OpenSans-Italic.eot');
+	src: local('Open Sans Italic'), local('OpenSans-Italic'),
+		url('/public/fonts/OpenSans-Italic.eot?#iefix') format('embedded-opentype'),
+		url('/public/fonts/OpenSans-Italic.woff') format('woff'),
+		url('/public/fonts/OpenSans-Italic.ttf') format('truetype'),
+		url('/public/fonts/OpenSans-Italic.svg#OpenSans-Italic') format('svg');
+	font-weight: normal;
+	font-style: italic;
+}
+
+@font-face {
+	font-family: 'Open Sans';
+	src: url('/public/fonts/OpenSans-Bold.eot');
+	src: local('Open Sans Bold'), local('OpenSans-Bold'),
+		url('/public/fonts/OpenSans-Bold.eot?#iefix') format('embedded-opentype'),
+		url('/public/fonts/OpenSans-Bold.woff') format('woff'),
+		url('/public/fonts/OpenSans-Bold.ttf') format('truetype'),
+		url('/public/fonts/OpenSans-Bold.svg#OpenSans-Bold') format('svg');
+	font-weight: bold;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'Open Sans';
+	src: url('/public/fonts/OpenSans-Light.eot');
+	src: local('Open Sans Light'), local('OpenSans-Light'),
+		url('/public/fonts/OpenSans-Light.eot?#iefix') format('embedded-opentype'),
+		url('/public/fonts/OpenSans-Light.woff') format('woff'),
+		url('/public/fonts/OpenSans-Light.ttf') format('truetype'),
+		url('/public/fonts/OpenSans-Light.svg#OpenSans-Light') format('svg');
+	font-weight: 300;
+	font-style: normal;
+}
+html, body {
+	margin: 0;
+	padding: 0;
+	font-family: "Open Sans";
+	height: 100%;
+	background-color: #deadface;
+}
+body.login{
+	background-repeat: no-repeat;
+	font-family: serif;
+	background-color: white;
+	/*background-image: url("bkg-ppt.jpg");
+	background-size: cover;
+	background-position: top right !important;*/
+	animation-name: LoginBkg; 
+	vertical-align: center;
+	animation-iteration-count: infinite; 
+	animation-duration: 20s; 
+	animation-direction: normal;
+}
+h1.logo{
+	font-family: 'Open Sans' , monospace;
+	cursor: default;
+	margin-top: 20px;
+	font-weight: 300;
+	font-size:50px;
+}
+div.navbar {
+	width: 100%;
+	padding-right: 0px;
+	display: flex;
+	background-color: indigo;
+	color: white;
+	overflow: hidden;
+	box-shadow: 2px 2px 3px rgba(0,0,0,0.25);
+}
+.navbar h1, .navbar h2, .navbar span, .navbar .menu{
+	/*font-family: 'Open Sans';*/
+	color:white;
+	font-weight: 300;
+	cursor: default;
+	margin: 5px;
+}
+.navbar i.fa-bars{
+	float: right;
+	cursor: default;
+}
+.navbar .menu {
+	background-color: white;
+	display: flex;
+	right: 20px;
+}
+.navbar .menu span , .navbar .menu a{
+	color: black;
+	float: left;
+	padding: 20px;
+	width: 100%;
+}
+.navbar .menu a:hover{
+	background-color: lightgray;
+}
+div.background{
+	background-color: white;
+	background-color: rgba(0,0,0,0.4);
+	position: fixed;
+	display: inline-block;
+    vertical-align: middle;
+	top: 0px;
+	left: 0px;
+	width: 100%;
+	height: 100%;
+	overflow: auto;
+}
+div#form{
+	padding: 20px;
+	position: static;
+	font-family: 'Open Sans' , monospace;
+	width: 50%;	
+	text-align: start;
+	display: inline-block;
+	vertical-align: middle;
+	box-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+	border:solid thin transparent;
+	border-radius: 10px; 
+	margin: 20px;
+}
+div.profileHead {
+	width: 50%;
+	margin: 20px;
+	background-color: white;
+	padding: 5px;
+	box-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+	overflow-x: auto;
+}
+div.profileHead fieldset {
+	border: solid thin gray;
+	border-radius: 5px;
+}
+div.profileHead img {
+	padding: 5px;
+	box-shadow: 0.5px 0.5px 0.5px 0.5px rgba(0,0,0,0.5);
+}
+div.fname h2{
+	margin-bottom: 5px;
+}
+div.username {
+	font-style: italic;
+}
+div.status {
+	margin: 20px;
+	padding: 10px;
+	box-shadow: -0.5px 0.5px 0.5px 0.5px rgba(0,0,0,0.5);
+	overflow: auto;
+}
+div.interests {
+	margin: 20px;
+}
+div.interests span {
+	color: black;
+	padding: 10px;
+	margin: 5px;
+}
+div.post {
+	width: 50%;
+	background-color: white;
+	color: black;
+	margin: 15px;
+	box-shadow: 0.5px 0.5px 0.5px 0.5px rgba(0,0,0,0.5);
+	font-weight: 300;
+}
+.F:hover{
+	color: red;
+}
+.O:hover{
+	color: purple;
+}
+.C:hover{
+	color: yellow;
+}
+.U:hover{
+	color: green;
+}
+.S:hover{
+	color:orange;
+}
+.A:hover{
+	color:blue;
+}
+div.about{
+	position: fixed;
+	font-size: 10px;
+	color: black;
+	bottom: 10px;
+	right: 20px;
+}
+input, textarea{
+	background-color: white;
+	color: black;
+	border: solid thin gray;
+	margin: 10px;
+	font-size: 20px;
+	font-family: 'Open Sans';
+	font-weight: 300;
+	padding: 5px; 
+}
+table{
+	width: 100%;
+	padding: 20px;
+}
+input[type='text'] , input[type='password'] {
+	width: 90%;
+	font-family: 'Open Sans' , 'FontAwesome';
+	font-weight: 300;
+}
+input[type='button'] , input[type='submit']{
+	box-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+	border-radius: 2px;
+	box-shadow: 0.5px 0.5px 1px rgba(0,0,0,0.5);
+	background-color: #5c5cca;
+	color: white;
+	font-weight: normal;
+	padding:10px;
+	margin:20px;
+}
+input[type='button']:hover , input[type='submit']:hover{
+	background-color: #6c6cdb;
+}
+input[type='button']:focus , input[type='submit']:focus{
+	background-color: #6c6cdb;
+}
+
+@media only screen and (orientation: portrait) {
+	div#form{
+		width: 80%;
+		margin-top: 100px;
+	}
+	h1.logo{
+		font-size:100px;
+		font-weight: normal;
+		margin-top: 50px;
+	}
+	div.navbar .menu, div.navbar span{
+		width: 100%;
+		display: block;
+		font-size: 40px;
+	}
+	div.profileHead {
+		width: 90%;
+	}			
+	div.post {
+		width: 90%;
+	}
+	table{
+		width: 100%;
+		padding: 50px;
+	}
+	input{
+		margin: 20px;
+		font-size: 50px;
+	}
+	input[type='button'] , input[type='submit']{
+		padding:20px;
+		margin:50px;
+		margin-top: 10px;
+	}
+}

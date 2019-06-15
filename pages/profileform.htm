@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Update your profile</title>
+	<link rel="shortcut icon" href="/public/icon.ico">
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link href="/public/mui.min.css" rel="stylesheet" type="text/css" />
+	<script src="/public/mui.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="/public/style.css">
+	<meta charset="utf-8" http-equiv="X-Frame-Options" value="DENY">
+	<script src="/public/jquery.min.js"></script>
+	<script type="text/javascript" src="/public/bcsc.js"></script>
+</head>
+<body style="background-image: url('/public/form-wallpaper.jpg');">
+<div style="height: 5%;"></div>
+<div class="mui-panel mui-container-fluid" style="width: 90%;">
+	<form method="post" class="mui-form">
+		<legend>Update your profile <%= user.uname %>, make it better</legend>
+		<table class="mui-table">
+			<tr><td><span id="status" style="font-family:'Open Sans'; color:red; animation: 500ms fadeIn;">
+			<% if(error){ %>
+			<b>An error occured while updating the profile.</b><br><em>Please try again, and make sure that no field is left empty. Also, your name should not be more than 30 characters, and your about, not more than 150 characters.</em>
+			<% } %>
+		</span></td></tr>
+			<tr><td>
+			<div class="mui-textfield mui-textfield--float-label">
+				<input type="text" name="fname" maxlength="30" value="<%= user.fname %>" required>
+				<label for="fname">Full Name</label>
+			</div></td></tr>
+			<tr><td>
+			<div class="mui-textfield mui-textfield--float-label">
+			<textarea name="status" style="width: 90%;font-size: 15px;" maxlength="200" required><%= user.status %></textarea>
+			<label for="status">About</label>
+			</div></td></tr>
+			<tr><td>
+			<div class="mui-panel">
+			<span class="mui--text-caption">If you wish to update your display picture, you can easily do that by hovering over it in your profile. Also if you wish to edit the interests shown in your profile, you will have to click on each topic in your interests list and unsubscribe them. I know it's a little tough, but hey! Who doesn't enjoy a little customization?</span>
+			</div></td></tr>
+			<tr><td>
+			<div style="text-align: right;"><a href="/pwd">Change Password</a></div>
+			</td></tr>
+			<tr><td>
+			<div style="text-align: right;"><button type="submit" class="mui-btn mui-btn--raised mui-btn--primary">Update Profile</button></div>
+			</td></tr>
+		</table>
+	</form>
+</div>
+</body>
+</html>

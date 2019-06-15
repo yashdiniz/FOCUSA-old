@@ -1,0 +1,137 @@
+<html>
+<head>
+	<title>FOCUSA Dashboard Help</title>
+	<link rel="shortcut icon" href="/public/icon.ico">
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link href="/public/mui.min.css" rel="stylesheet" type="text/css" />
+	<script src="/public/mui.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="/public/style.css">
+	<meta charset="utf-8" http-equiv="X-Frame-Options" value="DENY">
+	<script src="/public/jquery.min.js"></script>
+	<script type="text/javascript" src="/public/bcsc.js"></script>
+	<script src="FOCdash.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function(){
+			$("#immediate").click(function() {
+				$("#slide-immediate").slideToggle(150);
+				if($("#immediate i").hasClass("fa-angle-down")) $("#immediate i").removeClass("fa-angle-down").addClass("fa-angle-up");
+				else $("#immediate i").removeClass("fa-angle-up").addClass("fa-angle-down");
+			});
+			$("#hide-immediate").click(function() {
+				$("#slide-immediate").slideUp(150);
+			})
+		})
+		jQuery(function($) {
+			var $bodyEl = $('body'),
+			$sidedrawerEl = $('#sidedrawer');
+
+			function showSidedrawer() {
+				// show overlay
+				var options = {
+					onclose: function() {
+						$sidedrawerEl
+						.removeClass('active')
+						.appendTo(document.body);
+						$bodyEl.removeClass('mui-scroll-lock');
+					}
+				};
+
+			var $overlayEl = $(mui.overlay('on', options));
+			$bodyEl.addClass('mui-scroll-lock');
+				// show element
+				$sidedrawerEl.appendTo($overlayEl);
+				setTimeout(function() {
+				$sidedrawerEl.addClass('active');
+				}, 20);
+			}
+
+			var $titleEls = $('strong', $sidedrawerEl);
+
+			$titleEls
+			.next()
+			.hide();
+			$titleEls.on('click', function() {
+			$(this).next().slideToggle(200);
+			});	
+
+			function hideSidedrawer() {
+				$bodyEl.toggleClass('hide-sidedrawer');
+			}
+
+			$('.js-show-sidedrawer').on('click', showSidedrawer);
+			$('.js-hide-sidedrawer').on('click', hideSidedrawer);
+		});
+	</script>
+	<style type="text/css">
+		body {
+			text-align: justify;
+		}
+		p{
+			padding-left: 15px; 
+		}
+		h1,h2,h3,h4,h5,h6 {
+			padding: 10px;
+		}
+		h1 {
+			padding-top: 20px;
+		}
+	</style>
+</head>
+<body>
+	<header id="header" class="header-shadow">
+		<div class="mui-appbar mui--appbar-height">
+			<table class="mui-appbar mui--appbar-height">
+				<tr><td><a class="sidedrawer-toggle mui--visible-xs-inline-block mui--visible-sm-inline-block js-show-sidedrawer"><i class="fa fa-bars"></i></a>
+				<a class="sidedrawer-toggle mui--hidden-xs mui--hidden-sm js-hide-sidedrawer"><i class="fa fa-bars"></i></a>
+				<span class="mui--text-headline appbar-brand">&nbsp;&nbsp;FOCUSA&nbsp; &gt; &nbsp;manual pages</span></td>
+				</tr>
+			</table>
+		</div>
+	</header>
+	<div id="sidedrawer" class="mui--no-user-select">
+		<table id="sidedrawer-brand" class="mui--appbar-height mui--appbar-line-height">
+		<tr><td><span class="mui--text-headline">FOCUSA</span></td></tr>
+		</table>
+		<div class="mui-divider"></div>
+		<ul>
+			<li><a href="index.html"><strong>Introduction</strong></a></li>
+			<li><a href="users.html"><strong>User Types</strong></a></li>
+			<li><a href="dashboard.html"><strong>Dashboard</strong></a></li>
+			<li><a href="feedback.html"><strong>Feedback</strong></a></li>
+			<li><a href="/logout"><strong>Logout</strong></a></li>
+		</ul>
+	</div>
+<div id="content-wrapper" class="mui-container-fluid">
+	<div id="appbar-placeholder" class="mui--appbar-height"></div>
+	<div style="height: 5%;"></div>
+	<div class="mui-panel mui-col-sm-10 mui-col-sm-offset-1" style="overflow: visible;">
+		<h2>Immediate help<span style="float: right; cursor: pointer;" id="immediate" title="Show/Hide content"><i class="fa fa-angle-down"></i></span></h2><hr>
+		<div id="slide-immediate" style="display: none;">
+			<h3>E-mail sharing service not sending attachments?</h3>
+			<p>This issue is related to either of the three possibilities: 
+			<ol>
+				<li>There is poor Internet connection to the FOCUSA server. Check the Internet connection to the server.</li>
+				<li>The e-mail account must have exhausted it's subscribed resources. This means that nobody can use the e-mail service until the account gets re-activated.</li>
+				<li>The e-mail SMTP configurations have been set incorrectly. Inform the network administrator to change the configurations.</li>
+			</ol></p>
+			<h3>Student has forgotten their password?</h3>
+			<p>
+			Do not worry! Administrators can make use of the <a href="dashboard.html#updateUser"><b>updateUser()</b></a> command in the dashboard. This command only requires 3 inputs: the username, the new account password, and the account's new permissions(or access controls, which can be set the same as previous).</p>
+			<h3>Nobody can comment on posts?</h3>
+			<p>This could mean that commenting is disabled by the network administrator. Inform the network administrator to change the configurations.</p>
+			<p><span style="text-align: right; cursor: pointer;" id="hide-immediate">Hide Content <i class="fa fa-chevron-up"></i></span></p>
+		</div>
+		<h1>Introduction</h1>
+		<hr>
+		<p>FOCUSA is a Content Management System designed similar to a social networking site, like reddit with a twist. FOCUSA manual pages is an attempt made to create an interactive set of manuals that can help a new user to make their life easier. Being created under the MIT Open Source License, I hereby grant anyone the permission to modify, improvise, reuse or take a portion of the code and use it in their own projects, as long as they state my name as the source of this software or portion of code in their projects.
+		</p>
+		<p>Also, since you are the end user of this software, I have given you a method of communicating with me related to any <a href="feedback.html"><em>new feature, new bug, or help in a topic not stated in these manual pages.</em></a></p>
+		<h1>How to use these manual pages</h1><hr>
+		<p>This webpage is designed to be simple and easy to use. You just have to click on a link on the contents pane, and the document related to the link clicked will open here. Another important functionality of this webpage, is that it allows administrators to type in administrative commands. More information can be found at the <a href="dashboard.html">dashboard</a> manual pages.
+		</p>
+	</div>
+</div>
+</body>
+</html>

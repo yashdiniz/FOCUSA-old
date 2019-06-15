@@ -1,0 +1,7 @@
+# YDB database files, which are created after initialisation
+# The database and backup files are important to the DB, but do not need to be on git
+# ignore every file containing database in it's name...
+*database*
+
+# ignore the lock file
+.~lock

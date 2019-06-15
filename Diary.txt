@@ -1,0 +1,190 @@
+Mon Aug 28, 10:31 2017
+
+In FOCUSA v3.0, I'm following a new database storage mechanism...
+
+REASON: 
+	 It has come to my notice recently, that rapid commit calls to the database, tend to CORRUPT the DB dump...
+	Therefore, I have now thought of strict measures to PREVENT DB CORRUPTION...
+
+SOLUTION:
+	 Instead of calling commit at EVERY operation, which MAY LEAD to MULTIPLE streams to the dump, CAUSING corruption,
+	Let the commit operation happen INDEPENDENTLY(through a setInterval(), at specific ticks) synchronously.
+	
+	 The special thing is that... AT EVERY CALL TO COMMIT, a boolean variable called commit will be flagged.
+	The commits will only ACTUALLY HAPPEN AFTER THE boolean is positive... 
+	And the boolean will be negated after every SUCCESSFUL COMMIT.
+
+CONCLUSION:
+	 Therefore, the file streams to YDB datastore won't be overloaded ANYMORE!
+
+DISADVANTAGE:
+	 The only problem is that if any kind of failure occurs, the commit since the last one may NEVER be recorded, and recovery will also be tough...(can be fixed by using smaller commit delays(<100ms), and better hard disks with 
+	 lower latencies)
+
+Mon Aug 28, 19:28 2017
+
+I have decided to implement SSL/TLS in my FOCUSA now... :)
+And I'm finally happy that I could do something related to MITM security
+
+Mon Nov 6, 11:34 2017
+
+IP spoofing is still a concern, even though I have implemented SSL/TLS.
+Also, a possible Denial of Service due to the session storage overhead on the server is another concern.
+(Proof of concept DoS succeeded! Too many login attempts via unique existing users)
+So, I thought of implementing self-signed tokens(like oAuth or JWT).
+This method would transfer a digitally signed token along with it's hash to the client, without any server overhead.
+The token would contain all the session data(like username and IP), encrypted by the key.
+The user would present it everytime(via a cookie) to authenticate themselves. 
+
+DISADVANTAGE:
+	 The primary disadvantage is that an attacker could somehow decrypt and modify the session token, and successfully impersonate
+	a user.
+
+CONCLUSION:
+	 Implementing this mechanism maybe useful on the long run if FOCUSA ever turns popular, and server overhead turns into a huge concern.
+	Till then, let's work out with server-side token auth.
+
+Thu Dec 28, 11:54 2017
+
+For this version of FOCUSA, I have thought of employing a new search algorithm for the posts. It assumes the data is previously 
+sorted. This algorithm performs a limited linear search[O(n), where n is number of posts]. 
+
+The search uses two variables, the ID of the posts, and a counter called limit. A for loop simply parses 
+through the whole database of posts, and pushes relevant results into an array. The array index will not 
+exceed the value of limit variable(thus limiting the work needed to be done). If the user wishes to see 
+more posts, they can simply request viewing posts AFTER the ID of the last post they saw.
+
+Thu Dec 28, 15:21 2017
+
+The following will be new convention for searching in FOCUSA,
+	_topic_  : 	will help search topics
+	#hashtag : 	will help search hashtags
+	@username:	will help search usernames
+	id       :	will show the user a post with matching ID
+
+Sat Jan 27, 23:48 2018
+
+To create a flawless experience, and reduce the need for constant refreshing, our team finally decided to make something like notifications...
+The admin receives notifications about stuff that's happening, and clicking them makes something happen...
+(I'm still wondering whether to implement it by using HTML5 notifications or custom notifications)(actually, that's up to the front end team)
+(for simplicity, I'll use HTML5 notifications...)
+
+Also, a project review recently conducted led the stakeholders to request the addition of another feature: POST APPROVAL.
+I understood it as a measure of CONTROL, and reduction of useless resource wastage. This will need to be added soon.
+
+Thu Feb 22, 01:26 2018
+
+I have finally added the POST APPROVAL feature!!(bottles of champagne pop)
+No, but I really have not controlled anything as such. Below is a complete explanation of what post approval means, and what it does:
+	1.	All posts have an approve flag, which is set to false by default(implies unapproved), except for admins, for whom approve will be true automatically.
+	2.	Posts made by guests, or by anyone who isn't admin, will have the posts' approve flag set to false, and admins will get notified.
+	3.	Posts will need to be approved by the admins, for them to get searched.
+	4.	Unapproved posts will not be searchable.
+	5.	Editing of posts automatically deactivates the approval flag, so that the post will need reapproval.
+	6.	Reported posts will also be flagged, even though they will still be visible in searches.
+	7.	AND, the catch. Currently, FOCUSA has 3 types of search/post access algorithms:
+		a.	search by query
+		b.	search/find by id
+		c.	search by approval flag
+		And b and c are not affected by the approve flag(that means that users can easily view an unapproved post as long as they know the id)
+
+Sun Mar 4, 22:48 2018
+
+We have added a file size limiting feature to posts in FOCUSA. This makes sure that files larger than a certain size are not allowed to be uploaded.
+We have therefore managed to mitigate another Denial of Service due to large file attachments.
+
+We are planning to add a backup procedure to the database, that allows daily backup of the datastore, and makes sure that recovery is also easy.
+
+Wed Mar 21, 00:41 2018
+
+I have planned on adding a few new features to FOCUSA. The first one is that I will use an nginx proxy and a firewall to protect the nodeJS server from 
+denial of service attacks. The only thing I can reply for your thoughts of me being so paranoid, "You'll thank me later!!"
+
+Sat Apr 7, 21:02 2018
+
+I know, it's board exam time, but you know how obsessed I am with FOCUSA. I have successfully completed adding a backup procedure to YDB's datastore!
+I have also FINALLY added nginx proxy support for FOCUSA!!
+Nginx can perform static file proxying based for FOCUSA, relieving FOCUSA's nodeJS script from unnecessary overload.
+It's really simple:
+	1. Any HTTP request with the URI "/public/*" will not be forwarded to nodeJS.
+	Instead, nginx will directly process that request and transfer the static file.
+	2. Any other HTTP request will be forwarded to nodeJS. This means that the 
+	overhead of content delivery has been averted from FOCUSA's main script.
+	3. Nginx has multithreaded, multi-channel support(serves static files faster
+	than nodeJS), and has a surprisingly small memory footprint(smaller than
+	FOCUSA), and will actually perform the task of static file serving(content
+	delivery) more easily.
+	4. Also, FOCUSA's memory usage dropped drastically after I removed static file
+	serving(it may have been buffering the files)!
+	MEMORY USAGE:
+		FOCUSA(with static file serving) >> FOCUSA(without static file serving) + nginx
+	5. This means that FOCUSA's main script only needs to perform the task of 	
+	content management, not content delivery anymore!!
+Hooray to efficiency and optimization!
+
+Mon Apr 23, 00:04 2018
+
+Near the completion of this term, hoping everything goes well for me. I have successfully completed running Secure WebSockets over HTTPS!! And also, for the
+record, I converted Relino's chat module into a super interactive, powerful and peer-to-peer chat interface: I've called it FOCUSA Converse. Don't know why,
+but Converse sounded good... To implement FOCUSA Converse, I had to simply create a new message tree in YDB, for storing the messages. Now, the tree storing 
+messages follows a nice 2-level IMAP-like structureand hierarchy, where the users read the messages under their node. The recipient stores the messages of
+the desired sender in another node under the recipient's designated node.
+
+Finally, I have decided to convert FOCUSA into a production module. It's time.
+I'll be clearing off all the unnecessary stuff from the file, and turning it into one 
+large zip file. This zip file will hopefully be handed over to the college, after I help
+them out in installation as well. This is assumingly the last entry in this informal yet informative journal.
+
+Sat Aug 19, 20:57 2018
+
+It has been a long time since the project submission. I have still not submitted the project to the college. That's why
+the project is still under maintenance. YDB currently has issues when it comes to dealing with interaction between
+multiple instances of FOCUSA on the same system, and also coordination between multiple instances across different systems.
+The following is meant to be a solution that combats this very problem.
+
+CONCEPT:
+	Currently, the savedb() function is used to set the commit flag, which leads to
+	saving/updating the datastore file into persistent storage. Taking advantage of
+	the frequency at which this function is called, can help in the idea below:
+	1.	Allow savedb() to take the parameters of the function, type of function call
+		and other important things.
+		Eg. savedb("addUser", {name:"@yashdiniz",pass:"...",perm:"a"}, broadcast=true);
+	2.	YDB will have a websocket or webhooks system(with all necessary configurations)
+		that allows broadcasting of the messages over to all the other systems.
+	3.	Basically, there will be a "master" instance, which will host the websocket server
+		(mostly the first instance) and the rest of the instances will connect as "slaves"
+		and will "reflect and maintain" redundant copies over all the systems.
+	4.	Every DB will send an update broadcast to the master, and this will be forwarded
+		by the master to all the slaves. This method of "distributed reflection"(don't know
+		the actual term) will be really useful.
+	5.	These redundant copies can be used for "inconsistency and corruption" checks and
+		fixes later as well.
+	6.	The main concern is the reflection of "reference" object, for which I'm planning to
+		use an array object, stating the directions of traversal through the tree, and the
+		last value in the array stating the value to save in the reference object(hoping to 
+		find a better solution)
+
+Mon Dec 10, 18:55 2018
+
+I may not have modified this code for a long time, but this update here IS BIG!! After my recent admission to the degree
+college of(ahem) my choice, I was recently introduced to a really detailed version of the subject Software Engineering.
+One of the aspects I learnt here was coupling and cohesion. After looking at the FOCUSA code, I realised it was FILLED
+with stamp coupling and logical cohesion(owing to the UNNECESSARY arguments being passed across all the modules "ydb, 
+custom") So I did this... (drum-roll)
+
+I managed to PREVENT multiple instances of YDB from being created, by using prototype functions!! Check the code...
+I thought it would never be possible, but here we are!!
+Due to this enhancement, the lowest level of coupling has vanished, thus LIBERATING me from thinking twice about
+maintenance. Now, we no longer need to transfer/share a common instance of YDB, since that will be done by the 
+YDB module ITSELF!!(Finally) However, distributed databases are still not quite in place...
+
+Fri Jan 11, 23:54 2019
+
+This is yet another huge update for FOCUSA. I have finally learnt enough of `git` and other Software 
+Engineering concepts to allow this project to be made Open Source. I have also decided working a little 
+more on the post editor/publisher, as that is the main point of attack.
+
+Here goes nothing;
+	1.	I have decided to use [Markdown](https://simplemde.com/markdown-guide)
+		as the formatting language for the editor, and also as the parser within posts. I am really grateful
+		to every dependency of this software by licensing it under MIT.

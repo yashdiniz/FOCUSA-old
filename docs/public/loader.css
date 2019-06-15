@@ -1,0 +1,69 @@
+div.postsby jumbo{
+	display: block;
+}
+@keyframes animF{
+	/*The keyframes in the animation*/
+	0% {width: 20px; height:20px; top: 20%;left: 20%;}
+	12.5%{width: 40px; height:40px;}
+	25%{width: 20px; height:20px; top: 20%;left: 80%; }
+	37.5%{width: 40px; height:40px;}
+	50%{width: 20px; height:20px; top: 80%;left: 80%; }
+	62.5%{width: 40px; height:40px;}
+	75%{width: 20px; height:20px; top: 80%;left: 20%; }
+}
+@keyframes fadeIn{
+	0% {height: 0%; opacity: 0;}
+	50% {height: inherit; opacity: .5;}
+	100% {height: inherit; opacity: 1; }
+}
+@keyframes slideIn{
+	0% {width: 0%;}
+	50% { width: 50%; }
+	100% { width: 100%; }
+}
+@keyframes LoginBkg{
+	0% 		{ background-color: #ffffff; }
+	20% 	{ background-color: #ffb0cd; }
+	40% 	{ background-color: #ff6199; }
+	60% 	{ background-color: #ec7fff; }
+	80% 	{ background-color: #f44336; }
+	100%	{ background-color: #ffffff; }
+}
+.loader{
+	position: fixed;
+	width: 100%;
+	height:100%;
+	top: 0px;
+	left: 0px;
+	z-index: 5;
+	background-color: rgba(0,0,0,0.5);
+}
+.loader div{
+	width: 20px;
+	height: 20px;
+	border-radius: 20px;
+	position:absolute;
+	top: 20%;left: 20%;
+	position: absolute;
+	animation-name: animF;
+	animation-duration: 3s;
+	animation-iteration-count: infinite;
+	animation-direction: normal;
+	animation-timing-function: linear;
+}
+div.f1{
+	animation-delay: 0s;
+	 background-color: green;
+}
+div.f2{
+	animation-delay: 0.75s;
+	background-color: yellow;
+}
+div.f3{
+	animation-delay: 1.5s;
+	background-color: red;
+}
+div.f4{
+	animation-delay: 2.25s;
+	 background-color: orange;
+}

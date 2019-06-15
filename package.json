@@ -1,0 +1,25 @@
+{
+	"name": "focusa",
+	"version": "3.0.0",
+	"description": "FOCUSA, the CMS project with a twist.",
+	"authors": "Yash Diniz, Akshay Sahani, Relino Carvalho, Noah Furtado, Shubham Khatavakar",
+	"main": "server.js",
+	"scripts": {
+		"start": "node server.js"
+	},
+	"dependencies": {
+		"body-parser": "^1.15.2",
+		"cookie-parser": "^1.4.3",
+		"crypto-js": "^3.1.9-1",
+		"ejs": "^2.5.2",
+		"express": "^4.14.0",
+		"fast-csv": "^2.4.1",
+		"https": "^1.0.0",
+		"multer": "^1.1.0",
+		"nodemailer": "^4.4.0",
+		"ssl-root-cas": "^1.2.3",
+		"toobusy-js": "^0.5.1",
+		"websocket": "^1.0.25",
+		"ws": "^5.1.1"
+	}
+}

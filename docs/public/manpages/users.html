@@ -1,0 +1,137 @@
+<html>
+<head>
+	<title>FOCUSA | User</title>
+	<link rel="shortcut icon" href="/public/icon.ico">
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link href="/public/mui.min.css" rel="stylesheet" type="text/css" />
+	<script src="/public/mui.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="/public/style.css">
+	<meta charset="utf-8" http-equiv="X-Frame-Options" value="DENY">
+	<script src="/public/jquery.min.js"></script>
+	<script type="text/javascript" src="/public/bcsc.js"></script>
+	<script src="FOCdash.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function(){
+			$("#immediate").click(function() {
+				$("#slide-immediate").slideToggle(150);
+				if($("#immediate i").hasClass("fa-angle-down")) $("#immediate i").removeClass("fa-angle-down").addClass("fa-angle-up");
+				else $("#immediate i").removeClass("fa-angle-up").addClass("fa-angle-down");
+			});
+			$("#hide-immediate").click(function() {
+				$("#slide-immediate").slideUp(150);
+			})
+		})
+		jQuery(function($) {
+			var $bodyEl = $('body'),
+			$sidedrawerEl = $('#sidedrawer');
+
+			function showSidedrawer() {
+				// show overlay
+				var options = {
+					onclose: function() {
+						$sidedrawerEl
+						.removeClass('active')
+						.appendTo(document.body);
+						$bodyEl.removeClass('mui-scroll-lock');
+					}
+				};
+
+			var $overlayEl = $(mui.overlay('on', options));
+			$bodyEl.addClass('mui-scroll-lock');
+				// show element
+				$sidedrawerEl.appendTo($overlayEl);
+				setTimeout(function() {
+				$sidedrawerEl.addClass('active');
+				}, 20);
+			}
+
+			var $titleEls = $('strong', $sidedrawerEl);
+
+			$titleEls
+			.next()
+			.hide();
+			$titleEls.on('click', function() {
+			$(this).next().slideToggle(200);
+			});	
+
+			function hideSidedrawer() {
+				$bodyEl.toggleClass('hide-sidedrawer');
+			}
+
+			$('.js-show-sidedrawer').on('click', showSidedrawer);
+			$('.js-hide-sidedrawer').on('click', hideSidedrawer);
+		});
+	</script>
+	<style type="text/css">
+		body {
+			text-align: justify;
+		}
+		p{
+			padding-left: 15px; 
+		}
+		h1,h2,h3,h4,h5,h6 {
+			padding: 10px;
+		}
+		h1 {
+			padding-top: 20px;
+		}
+		#userPermTable td, #userPermTable th {
+			border: solid thin lightgray;
+		}
+	</style>
+</head>
+<body>
+	<header id="header" class="header-shadow">
+		<div class="mui-appbar mui--appbar-height">
+			<table class="mui-appbar mui--appbar-height">
+				<tr><td><a class="sidedrawer-toggle mui--visible-xs-inline-block mui--visible-sm-inline-block js-show-sidedrawer"><i class="fa fa-bars"></i></a>
+				<a class="sidedrawer-toggle mui--hidden-xs mui--hidden-sm js-hide-sidedrawer"><i class="fa fa-bars"></i></a>
+				<span class="mui--text-headline appbar-brand">&nbsp;&nbsp;FOCUSA&nbsp; &gt; &nbsp;manual pages</span></td>
+				</tr>
+			</table>
+		</div>
+	</header>
+	<div id="sidedrawer" class="mui--no-user-select">
+		<table id="sidedrawer-brand" class="mui--appbar-height mui--appbar-line-height">
+		<tr><td><span class="mui--text-headline">FOCUSA</span></td></tr>
+		</table>
+		<div class="mui-divider"></div>
+		<ul>
+			<li><a href="index.html"><strong>Introduction</strong></a></li>
+			<li><a href="users.html"><strong>User Types</strong></a></li>
+			<li><a href="dashboard.html"><strong>Dashboard</strong></a></li>
+			<li><a href="feedback.html"><strong>Feedback</strong></a></li>
+			<li><a href="/logout"><strong>Logout</strong></a></li>
+		</ul>
+	</div>
+<div id="content-wrapper" class="mui-container-fluid">
+	<div id="appbar-placeholder" class="mui--appbar-height"></div>
+	<div style="height: 5%;"></div>
+	<div class="mui-panel mui-col-sm-10 mui-col-sm-offset-1" style="overflow: visible;">
+		<h1>User Accounts</h1><hr>
+		<p>A user is an entity, or figuratively an <em>identity</em>, in FOCUSA. This user can perform tasks like creating and viewing posts, creating and maintaining a profile, to even the trivial task of <em title="TODO">forwarding and sharing posts and attachments directly to their email.</em>
+		</p>
+		<p>This idea of managing users based on accounts, is something that improves the simplicity and flexibility of managing FOCUSA. The administrator has the ability of creating, updating, and deleting users directly through the <a href="dashboard.html">dashboard</a>.</p>
+
+		<h1>User permission hierarchy</h1><hr>
+		<p><em>Not every user is allowed to perform every task.</em> The <b>access control</b> of FOCUSA allows us to control the actions to the database, based on the <b>user permssion tag.</b> Every action performed to the database is <b>well monitored</b>, so if any attack ever occurs, the administrator will find out who did it by searching the logs. The user permission tag hierarchy is as follows:</p>
+		<p>
+			<table class="mui-table" id="userPermTable">
+				<tr><th>Permission symbol</th><th>Tasks permitted</th></tr>
+				<tr><th>"g"</th>
+				<td><p><ul><li>A <b style="font-variant: small-caps;">Guest</b> can view any post, uploading text-only posts(without any attachments), and follow people.<li>It is the user with the least priviledges.</ul>
+				</p></td></tr>
+				<tr><th>"nr"</th>
+				<td><p><ul><li>A <b style="font-variant: small-caps;">News Reporter</b> has all priviledges as the guest, along with the ability of uploading posts with attachments.<li> This user has moderate priviledges.</ul>
+				</p></td></tr>
+				<tr><th>"a"</th>
+				<td><p><ul><li>An <b style="font-variant: small-caps;">Administrator</b> has the most priviledges, along with the ability of modifying, deleting, and creating user accounts.<li> This user can also delete posts by any other user. They cannot edit any user's posts though.</ul>				
+				</p></td></tr>
+			</table>
+		</p>
+	</div>
+</div>
+</body>
+</html>

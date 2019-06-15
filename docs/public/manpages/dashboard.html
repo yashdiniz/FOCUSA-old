@@ -1,0 +1,187 @@
+<html>
+<head>
+	<title>FOCUSA | Dashboard</title>
+	<link rel="shortcut icon" href="/public/icon.ico">
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link href="/public/mui.min.css" rel="stylesheet" type="text/css" />
+	<script src="/public/mui.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="/public/style.css">
+	<meta charset="utf-8" http-equiv="X-Frame-Options" value="DENY">
+	<script src="/public/jquery.min.js"></script>
+	<script type="text/javascript" src="/public/bcsc.js"></script>
+	<script src="FOCdash.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function(){
+			$("#immediate").click(function() {
+				$("#slide-immediate").slideToggle(150);
+				if($("#immediate i").hasClass("fa-angle-down")) $("#immediate i").removeClass("fa-angle-down").addClass("fa-angle-up");
+				else $("#immediate i").removeClass("fa-angle-up").addClass("fa-angle-down");
+			});
+			$("#hide-immediate").click(function() {
+				$("#slide-immediate").slideUp(150);
+			})
+		})
+		jQuery(function($) {
+			var $bodyEl = $('body'),
+			$sidedrawerEl = $('#sidedrawer');
+
+			function showSidedrawer() {
+				// show overlay
+				var options = {
+					onclose: function() {
+						$sidedrawerEl
+						.removeClass('active')
+						.appendTo(document.body);
+						$bodyEl.removeClass('mui-scroll-lock');
+					}
+				};
+
+			var $overlayEl = $(mui.overlay('on', options));
+			$bodyEl.addClass('mui-scroll-lock');
+				// show element
+				$sidedrawerEl.appendTo($overlayEl);
+				setTimeout(function() {
+				$sidedrawerEl.addClass('active');
+				}, 20);
+			}
+
+			var $titleEls = $('strong', $sidedrawerEl);
+
+			$titleEls
+			.next()
+			.hide();
+			$titleEls.on('click', function() {
+			$(this).next().slideToggle(200);
+			});	
+
+			function hideSidedrawer() {
+				$bodyEl.toggleClass('hide-sidedrawer');
+			}
+
+			$('.js-show-sidedrawer').on('click', showSidedrawer);
+			$('.js-hide-sidedrawer').on('click', hideSidedrawer);
+		});
+	</script>
+	<style type="text/css">
+		body {
+			text-align: justify;
+		}
+		p{
+			padding-left: 15px; 
+		}
+		h1,h2,h3,h4,h5,h6 {
+			padding: 10px;
+		}
+		h1 {
+			padding-top: 20px;
+		}
+	</style>
+</head>
+<body>
+	<header id="header" class="header-shadow">
+		<div class="mui-appbar mui--appbar-height">
+			<table class="mui-appbar mui--appbar-height">
+				<tr><td><a class="sidedrawer-toggle mui--visible-xs-inline-block mui--visible-sm-inline-block js-show-sidedrawer"><i class="fa fa-bars"></i></a>
+				<a class="sidedrawer-toggle mui--hidden-xs mui--hidden-sm js-hide-sidedrawer"><i class="fa fa-bars"></i></a>
+				<span class="mui--text-headline appbar-brand">&nbsp;&nbsp;FOCUSA&nbsp; &gt; &nbsp;manual pages</span></td>
+				</tr>
+			</table>
+		</div>
+	</header>
+	<div id="sidedrawer" class="mui--no-user-select">
+		<table id="sidedrawer-brand" class="mui--appbar-height mui--appbar-line-height">
+		<tr><td><span class="mui--text-headline">FOCUSA</span></td></tr>
+		</table>
+		<div class="mui-divider"></div>
+		<ul>
+			<li><a href="index.html"><strong>Introduction</strong></a></li>
+			<li><a href="users.html"><strong>User Types</strong></a></li>
+			<li><a href="dashboard.html"><strong>Dashboard</strong></a></li>
+			<li><a href="feedback.html"><strong>Feedback</strong></a></li>
+			<li><a href="/logout"><strong>Logout</strong></a></li>
+		</ul>
+	</div>
+<div id="content-wrapper" class="mui-container-fluid">
+	<div id="appbar-placeholder" class="mui--appbar-height"></div>
+	<div style="height: 5%;"></div>
+	<div class="mui-panel mui-col-sm-10 mui-col-sm-offset-1" style="overflow: visible;">
+		<h1>The Dashboard</h1><hr>
+		<p>The dashboard is a tool provided to the administrators, to edit the database values easily.
+			The administrator can make new users, update user profiles, monitor and modify the activity of any user(related to their passwords and logs).
+		</p>
+		<p>In this version of FOCUSA however, I decided to use the <b>JavaScript console</b> of the web browser for entering dashboard commands. It intially may be a little difficult to use, but it turns out to be a very time-saving decision on the long run. Reason being that an administrator can make use of <b style="font-variant: small-caps;">all</b> of the programming features of JavaScript <em>while performing their daily jobs</em>.
+		<br>
+		<div style="text-align: center;">
+		<img src="images/Screenshot2.png" alt="Where to find the Console in Firefox" title="Where to find the Console in Firefox"><br>
+		<span class="mui--text-caption"><b>Figure:</b> Where to find the Console in Firefox</span>	
+		</div>
+		</p>
+		<p>For example, let us assume that an administrator needs to register 25 new users to the FOCUSA database. These users may be referred by their roll numbers.
+		In the case of a <em>Graphical User Interface</em>, the administrator would have to actually submit a addUser form <b style="font-variant: small-caps;">25 different times!</b> However, this can be totally eliminated by using a powerful programming language like JavaScript. Below you will notice a surprising improvement over the GUI method, in this snippet of code below: 
+		</p>
+	<pre class="mui-panel" style="font-size: 12px; overflow-x: auto; margin: 15px; padding: 0; ">
+	var students = "15CE";
+	for (var i=1;i<=25;i++) {
+		<a href="#addUser">addUser</a>( students + i , "computerEngg" , "g");	
+		//the syntax of this command is addUser(username , password , permissions)
+		//registering 25 new users with username prefix 15CE, the same password for every account, and <a href="users.html#userPermTable">user priviledges</a> of g.
+	}</pre>
+		<p>You can instantly notice the power of this illustration! I hope this justifies the reason why simplicity is always more powerful than the fancy Graphical User Interfaces.		
+		</p>
+		<h1>Dashboard Commands</h1><hr>
+		<p>Following is the set of commands currently supported by the <b>Dashboard Console</b>.
+		<dl style="padding-left: 20px;">
+			<dt id="addUser">addUser(username , password , permission)</dt>
+			<dd><em>-where username: "name of the user" , password: "password for the user" , permission: "The access control for the user" </em>
+			<p>This function is created to register new users into the FOCUSA database.</p>
+			</dd>
+			<dt id="updateUser">updateUser(username , newpermission , newpassword)</dt>
+			<dd><em>-where username: "name of the user" , newpermission: "The new access control for the user" , newpassword: "new password for the user"(can be empty)</em>
+			<p>This function can be used to update the abilities of a current user, modify their passwords, and escalate/demote their priviledges.</p>
+			</dd>
+			<dt id="deleteUser">deleteUser(username)</dt>
+			<dd><em>-where username: "name of the user"</em>
+			<p>This function can be used to delete a certain user from FOCUSA.</p>
+			</dd>
+			<dt id="getUserInformation">getUserInformation(username)</dt>
+			<dd><em>-where username: "name of the user"</em>
+			<p>This function can be used to retrieve user details from FOCUSA.</p>
+			</dd>
+			<dt id="createTopic">createTopic(topic)</dt>
+			<dd><em>-where topic: "Name of the topic you wish to create"</em>
+			<p>This function can be used to create a Topic(a category to post under). Topics created will appear in the post category choosing portion while posting. Remember that topic names require to follow a specific format. The name SHOULD have no spaces or punctuation(one word), and must begin and end with underscores. For example: _public_ or _news_</p>
+			</dd>
+			<dt id="removeTopic">removeTopic(topic)</dt>
+			<dd><em>-where topic: "Name of the topic you wish to remove"</em>
+			<p>This function can be used to remove an exisiting Topic.</p>
+			</dd>		
+			<dt id="notification">notifyUser(username, label, data, link)</dt>
+			<dd><em>-where username: "Name of the user who will receive the notification" , label: "Label of the notification"<br>
+			data: "Body of the notification" , link: "Link to open when user clicks notification"</em>
+			<p>This function can be used to send a notification to any other user. The notification will appear in the other user's notification bar.<br>
+			NOTE: You can always save the link as #nothing if you do not want the notification to get clicked.</p>
+			</dd>
+			<dt id="showLogs">showLogs()</dt>
+			<dd>
+			<p>Gives you a very powerful yet simple CLI to check the Logs. After typing this command, you can type searchLogs() to perform a search query on any Log you need to find.</p>
+			</dd>
+			<dt id="searchLogs">searchLogs(query)</dt>
+			<dd><em>-where query: "A pattern matching string to help find Logs matching the regular expression entered"</em>
+			<p>Allows you to search the downloaded Logs very quickly, by just typing a regular expression based search query. Allows you to take advantage of the JS-RegExp as well. For example, <pre>searchLogs("DASHBOARD");</pre> will return all dashboard related logs.</p>
+			</dd>
+			<dt id="deleteMessages">deleteMessages(from,to)</dt>
+			<dd><em>-where from: "The sender/user from whom you wish to delete the conversation" , to: "The recipient whose conversation you wish to delete"</em>
+			<p>Deletes a conversation that is saved in the database, between two parties. For example, <pre>deleteMessages('@admin','@admyn');</pre> will perform a delete of a conversation between the users @admin and @admyn. Note that it only deletes one side of the conversation, and to delete both sides, you will need to perform THE FOLLOWING: <pre>deleteMessages('@admin','@admyn'); deleteMessages('@admyn','@admin');</pre> </p>
+			</dd>
+			<dt id="logout">logout()</dt>
+			<dd>
+			<p>Allows the admin who has logged in to logout via the console.</p>
+			</dd>
+		</dl>
+		</p>
+	</div>
+</div>
+</body>
+</html>

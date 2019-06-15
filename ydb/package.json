@@ -1,0 +1,11 @@
+{
+  "name": "ydb",
+  "version": "1.0.0",
+  "description": "This package should be used solely for THIS PROJECT(FOCUSA), for simplifying it's database operations.",
+  "main": "./index.js",
+  "scripts": {
+    "test": "echo \"This package isn't designed to run independently... Run it within a code...\" && exit 1"
+  },
+  "author": "Yash Diniz <yashdiniz@gmail.com>",
+  "license": "UNLICENSED"
+}
