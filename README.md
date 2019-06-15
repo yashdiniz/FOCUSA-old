@@ -42,7 +42,7 @@ Okay, so first things first, here are the **assumptions** I've made throughout t
 
 8.	(Optional)Reinitialise YDB by opening a node REPL terminal and typing the command 
 	```javascript
-		> var ydb = require("./ydb/ydb.js")("initialize");
+		> var ydb = (require("./ydb/ydb.js"))("initialize");
 	```
 
 9.	Finally, you can start FOCUSA. You need to type the command `sudo ./server.sh` in the terminal, which starts FOCUSA. if any error occurs,
@@ -61,7 +61,7 @@ sysadmin needs to have basic knowledge of how to connect to YDB, and use it to i
 	```
 2.	Next, you will be welcomed by the node REPL terminal. You need to type in the following command in the REPL:
 	```javascript
-		> var ydb = require("./ydb/ydb.js")();
+		> var ydb = new (require("./ydb/ydb.js"))();
 		//NOTE: Remember to add the parentheses and semicolon at the end of this command...
 	```
 3.	After this command executes, you can type `ydb. ` and press the TAB key to explore the various functions and operations
