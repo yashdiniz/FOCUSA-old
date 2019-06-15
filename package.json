@@ -2,7 +2,7 @@
 	"name": "focusa",
 	"version": "3.0.0",
 	"description": "FOCUSA, the CMS project with a twist.",
-	"authors": "Yash Diniz, Akshay Sahani, Relino Carvalho, Noah Furtado, Shubham Khatavakar",
+	"authors": "Yash Diniz, Relino Carvalho",
 	"main": "server.js",
 	"scripts": {
 		"start": "node server.js"

@@ -1,3 +1,9 @@
+# FOCUSA v3.0.0
+
+> This was the very first project I had ever endeavoured to do. The adventure did bring me quite far, and I am happy with progress. However, kindly
+> forgive any mistakes or immature programming decisions that may be documented here. I know this project contains a Gargantua of maintenance issues,
+> and will take a long time to fix and update.
+
 First of all, I would like to welcome you to FOCUSA! This product is a Learning Management System that is simple, interactive, and helpful!
 Okay, so first things first, here are the **assumptions** I've made throughout this tutorial.
 
