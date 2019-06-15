@@ -12,7 +12,7 @@ Okay, so first things first, here are the **assumptions** I've made throughout t
 	(if not, then use the `cd` command to traverse into the project root directory)
 *	You are aware of and have knowledge about technologies like nginx and nodejs, and can atleast perform basic operations with them.
 
-# *Steps to set up FOCUSA on a new system(Linux):*
+## Steps to set up FOCUSA on a new system(Linux):
 
 1.	Extract and the open the project's root directory. Also open a terminal at the project's root directory.
 
@@ -48,7 +48,7 @@ Okay, so first things first, here are the **assumptions** I've made throughout t
 9.	Finally, you can start FOCUSA. You need to type the command `sudo ./server.sh` in the terminal, which starts FOCUSA. if any error occurs,
 	please check the error, and inform me, otherwise fix the bugs accordingly.
 
-# *Steps to perform very risky jobs of FOCUSA(an Intro to YDB)*
+## Steps to perform very risky jobs of FOCUSA(an Intro to YDB)
 
 An informative tip: If you have good knowledge about JavaScript or Node.js as a programming language, then you can also try playing
 around with YDB(FOCUSA's unique, simple and secure database). YDB's security lies around the fact that most of the fragile database
