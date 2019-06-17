@@ -187,4 +187,4 @@ more on the post editor/publisher, as that is the main point of attack.
 Here goes nothing;
 	1.	I have decided to use [Markdown](https://simplemde.com/markdown-guide)
 		as the formatting language for the editor, and also as the parser within posts. I am really grateful
-		to every dependency of this software by licensing it under MIT.
+		to every dependency of this software for being licensed under MIT.
