@@ -60,7 +60,6 @@ if (process.platform === "win32") {
 clients={};			//bc users dictionary
 
 if (require.main===module) {
-	app = express();
 	var YDB = require(__dirname+"/ydb");	//activate function, which returns a usage instance...
 	var ydb = new YDB();	//prevents multiple access instances to the DB, therefore increasing security
 	
