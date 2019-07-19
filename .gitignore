@@ -3,7 +3,10 @@ npm-debug.log
 
 # within the public directory, I need to git ignore:
 docs/public/documents/*
+!docs/public/documents/readme.md
 docs/public/dp/*
+!docs/public/dp/default.gif
+!docs/public/dp/old-avatar.gif
 
 # Also, ignore the certificates!
 certs/*
