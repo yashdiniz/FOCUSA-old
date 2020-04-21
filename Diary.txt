@@ -127,7 +127,7 @@ Mon Apr 23, 00:04 2018
 Near the completion of this term, hoping everything goes well for me. I have successfully completed running Secure WebSockets over HTTPS!! And also, for the
 record, I converted Relino's chat module into a super interactive, powerful and peer-to-peer chat interface: I've called it FOCUSA Converse. Don't know why,
 but Converse sounded good... To implement FOCUSA Converse, I had to simply create a new message tree in YDB, for storing the messages. Now, the tree storing 
-messages follows a nice 2-level IMAP-like structureand hierarchy, where the users read the messages under their node. The recipient stores the messages of
+messages follows a nice 2-level IMAP-like structure and hierarchy, where the users read the messages under their node. The recipient stores the messages of
 the desired sender in another node under the recipient's designated node.
 
 Finally, I have decided to convert FOCUSA into a production module. It's time.
