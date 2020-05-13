@@ -18,15 +18,15 @@
 	"SMTPserver" : "smtp.gmail.com" ,
 	"SMTPport" : 465 ,
 	"SMTPsecure" : true ,
-	"emailID" : "focusa1896@gmail.com" ,
+	"emailID" : "focusa@gmail.com" ,
 	"auth" : {
 		"help" : "'type' could either be empty, or have the value 'OAuth2'" ,
 		"help" : "If OAuth2 is used, the password field below can be left empty." ,
 		"type" : "" ,
 		"clientID" :  "1072642306498-559n3jbn40a1eltdoikmc0aevu6493oj.apps.googleusercontent.com" ,
-		"clientSecret" : " bb83mrQeM54ktARSxgsGf7qn "
+		"clientSecret" : "type in your secret if you're using OAuth2"
 	} ,
-	"password" : "FOCUSA@123cms" ,
+	"password" : "type in your password here" ,
 	"activatePostApproval" : true ,
 	"newsReporterApproval" : true ,
 	"guestsCanPost" : true ,
