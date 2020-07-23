@@ -1,4 +1,4 @@
-node_modules
+node_modules/
 npm-debug.log
 
 # within the public directory, I need to git ignore:
